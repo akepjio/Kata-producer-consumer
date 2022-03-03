@@ -8,6 +8,16 @@ the goal of this project is to create an application that generate pass (QRcode,
 - Your Python's version must be greater than 2.7.10. 
 Run `$ python --version` to check your Python's version
 
+### Install Pip requirements
+
+`$ pip install -r requirements.txt`
+
+Freeze pip dependencies: 
+`$ pip freeze > requirements.txt`
+
+## Launch GUI
+---
+
 ### Usage
 Run  `$ python run.py`
 
