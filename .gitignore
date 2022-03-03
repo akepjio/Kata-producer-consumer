@@ -1,2 +1,4 @@
 #cache files
-**/__pycache__/
+App/__pycache__/
+Data/__pycache__/
+Queue/__pycache__/
