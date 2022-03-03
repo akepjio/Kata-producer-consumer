@@ -22,7 +22,10 @@ class Consumer(Thread):
             for i in datas.keys():
                 if status == "vaccinated":
                    script_path = os.getcwd()
-                   pass_file_name = os.path.join(script_path, datas[i]['lastname']+".txt")
+                   pass_file_name = os.path.join(script_path, "Pass", datas[i]['lastname']+".txt")
+                   f = open(pass_file_name, 'w+')
+                   f.write("Pass of " + datas[i]['lastname'])
+                   f.close()
                 else:
                     pass_file_name = "No pass"
 
