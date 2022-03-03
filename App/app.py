@@ -18,7 +18,7 @@ class App(tk.Tk):
 
     def create_tree_widget(self):
         #define columns 
-        cols = ('Name', 'firstname', 'Birth Date', 'Request Date', 'Generation Date', 'Status')
+        cols = ('Name', 'firstname', 'Birth Date', 'Request Date', 'Generation Date', 'Status', 'Pass File')
 
         # initiating the table
         table = ttk.Treeview(self, columns=cols, show='headings')
@@ -26,7 +26,7 @@ class App(tk.Tk):
         # define headings
         for col in cols:
             table.heading(col, text=col)
-            table.grid(row=1, column=10, columnspan=150)
+            table.grid(row=1, column=10, columnspan=300)
             table.place(x=300, y=200)
             
         move_down_button = Button(text="Move Down", command=self.down)
@@ -37,7 +37,7 @@ class App(tk.Tk):
         
         table.bind('<Double-Button-1>', self.item_selected)
 
-        table.grid(row=0, column=10, sticky=tk.NSEW)
+        table.grid(row=0, column=50, sticky=tk.NSEW)
 
         # add a scrollbar
         scrollbar = ttk.Scrollbar(self, orient=tk.VERTICAL, command=table.yview)

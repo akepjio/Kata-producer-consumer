@@ -2,6 +2,7 @@ from threading import Thread
 import tkinter as tk
 import time 
 import random
+import os.path
 
 
 class Consumer(Thread):
@@ -12,19 +13,25 @@ class Consumer(Thread):
 
     def run(self):
         j=0
-        while j<5:
+        while j<10:
             datas = self.queue.get(True)
 
-            choice = random.choice(["vaccinated", "not vaccinated"])
+            status = random.choice(["vaccinated", "not vaccinated"])
 
             #add data to tableview
             for i in datas.keys():
-                if i % 2 == 0:
-                    self.table.insert('', tk.END, values=(datas[i]['lastname'],datas[i]['firstname'],datas[i]['Birth Date'],datas[i]['Request Date'],datas[i]['Generation Date'],choice),tags=('evenrow',))
+                if status == "vaccinated":
+                   script_path = os.getcwd()
+                   pass_file_name = os.path.join(script_path, datas[i]['lastname']+".txt")
                 else:
-                    self.table.insert('', tk.END, values=(datas[i]['lastname'],datas[i]['firstname'],datas[i]['Birth Date'],datas[i]['Request Date'],datas[i]['Generation Date'],choice),tags=('oddrow',))
+                    pass_file_name = "No pass"
+
+                if i % 2 == 0:
+                    self.table.insert('', tk.END, values=(datas[i]['lastname'],datas[i]['firstname'],datas[i]['Birth Date'],datas[i]['Request Date'],datas[i]['Generation Date'],status,pass_file_name),tags=('evenrow',))
+                else:
+                    self.table.insert('', tk.END, values=(datas[i]['lastname'],datas[i]['firstname'],datas[i]['Birth Date'],datas[i]['Request Date'],datas[i]['Generation Date'],status,pass_file_name),tags=('oddrow',))
                 
             self.queue.task_done()
-            print('Consumer consume: ' + str(datas))
-            time.sleep(random.random())
+            print('Consumer consume: ' + str(datas) + '\n')
+            time.sleep(15)
             j+=1
