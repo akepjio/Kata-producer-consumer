@@ -2,3 +2,6 @@
 App/__pycache__/
 Data/__pycache__/
 Queue/__pycache__/
+
+#venv
+venv/

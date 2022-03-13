@@ -3,6 +3,7 @@ import tkinter as tk
 import time 
 import random
 import os.path
+import qrcode
 
 
 class Consumer(Thread):
@@ -22,17 +23,19 @@ class Consumer(Thread):
             for i in datas.keys():
                 if status == "vaccinated":
                    script_path = os.getcwd()
-                   pass_file_name = os.path.join(script_path, "Pass", datas[i]['lastname']+".txt")
-                   f = open(pass_file_name, 'w+')
-                   f.write("Pass of " + datas[i]['lastname'])
-                   f.close()
-                else:
-                    pass_file_name = "No pass"
+                   img = qrcode.make(datas[i]['lastname'])
+                   pass_file_name = os.path.join(script_path, "Pass", datas[i]['lastname']+".png")
+                   img.save(pass_file_name)
+                   if i % 2 == 0:
+                    self.table.insert('', tk.END, values=(datas[i]['lastname'],datas[i]['firstname'],datas[i]['Birth Date'],datas[i]['Request Date'],datas[i]['Generation Date'],status,'QRcode available'),tags=('evenrow',))
+                   else:
+                    self.table.insert('', tk.END, values=(datas[i]['lastname'],datas[i]['firstname'],datas[i]['Birth Date'],datas[i]['Request Date'],datas[i]['Generation Date'],status,'QRcode available'),tags=('oddrow',))
 
-                if i % 2 == 0:
-                    self.table.insert('', tk.END, values=(datas[i]['lastname'],datas[i]['firstname'],datas[i]['Birth Date'],datas[i]['Request Date'],datas[i]['Generation Date'],status,pass_file_name),tags=('evenrow',))
                 else:
-                    self.table.insert('', tk.END, values=(datas[i]['lastname'],datas[i]['firstname'],datas[i]['Birth Date'],datas[i]['Request Date'],datas[i]['Generation Date'],status,pass_file_name),tags=('oddrow',))
+                    if i % 2 == 0:
+                        self.table.insert('', tk.END, values=(datas[i]['lastname'],datas[i]['firstname'],datas[i]['Birth Date'],datas[i]['Request Date'],datas[i]['Generation Date'],status,'No QRcode'),tags=('evenrow',))
+                    else:
+                        self.table.insert('', tk.END, values=(datas[i]['lastname'],datas[i]['firstname'],datas[i]['Birth Date'],datas[i]['Request Date'],datas[i]['Generation Date'],status,'No QRcode'),tags=('oddrow',))
                 
             self.queue.task_done()
             print('Consumer consume: ' + str(datas) + '\n')

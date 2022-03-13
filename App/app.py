@@ -18,7 +18,7 @@ class App(tk.Tk):
 
     def create_tree_widget(self):
         #define columns 
-        cols = ('Name', 'firstname', 'Birth Date', 'Request Date', 'Generation Date', 'Status', 'Pass File')
+        cols = ('Name', 'firstname', 'Birth Date', 'Request Date', 'Generation Date', 'Status', 'QRcode')
 
         # initiating the table
         table = ttk.Treeview(self, columns=cols, show='headings')
