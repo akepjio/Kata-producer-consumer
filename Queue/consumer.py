@@ -24,12 +24,15 @@ class Consumer(Thread):
                 if status == "vaccinated":
                    script_path = os.getcwd()
                    img = qrcode.make(datas[i]['lastname'])
-                   pass_file_name = os.path.join(script_path, "Pass", datas[i]['lastname']+".png")
-                   img.save(pass_file_name)
-                   if i % 2 == 0:
-                    self.table.insert('', tk.END, values=(datas[i]['lastname'],datas[i]['firstname'],datas[i]['Birth Date'],datas[i]['Request Date'],datas[i]['Generation Date'],status,'QRcode available'),tags=('evenrow',))
+                   if os.path.exists('Pass')==False:
+                    os.mkdir('Pass')
                    else:
-                    self.table.insert('', tk.END, values=(datas[i]['lastname'],datas[i]['firstname'],datas[i]['Birth Date'],datas[i]['Request Date'],datas[i]['Generation Date'],status,'QRcode available'),tags=('oddrow',))
+                    pass_file_name = os.path.join(script_path, "Pass", datas[i]['lastname']+".png")
+                    img.save(pass_file_name)
+                    if i % 2 == 0:
+                        self.table.insert('', tk.END, values=(datas[i]['lastname'],datas[i]['firstname'],datas[i]['Birth Date'],datas[i]['Request Date'],datas[i]['Generation Date'],status,'QRcode available'),tags=('evenrow',))
+                    else:
+                        self.table.insert('', tk.END, values=(datas[i]['lastname'],datas[i]['firstname'],datas[i]['Birth Date'],datas[i]['Request Date'],datas[i]['Generation Date'],status,'QRcode available'),tags=('oddrow',))
 
                 else:
                     if i % 2 == 0:
